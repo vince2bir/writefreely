@@ -12,9 +12,9 @@
 <div class="snug content-container">
 	<h1>Invite to {{.SiteName}}</h1>
 	{{ if .Expired }}
-		<p style="font-style: italic">This invite link is expired.</p>
+		<p style="font-style: italic">Cette invitation a expiré.</p>
 	{{ else }}
-		<p>Copy the link below and send it to anyone that you want to join <em>{{ .SiteName }}</em>. You could paste it into an email, instant message, text message, or write it down on paper. Anyone who navigates to this special page will be able to create an account.</p>
+		<p>Copiez le lien ci-dessous et envoyez le à celles et ceux que vous souhaitez voir rejoindre <em>{{ .SiteName }}</em>. Vous pouvez le copier dans un email, message instantané, SMS, ou le noter sur un papier. Quiconque utilisera ce lien pourra créer un compte.</p>
 		<input class="copy-link" type="text" name="invite-url" value="{{$.Host}}/invite/{{.Invite.ID}}" onfocus="if (this.select) this.select(); else this.setSelectionRange(0, this.value.length);" readonly />
 		<p>
 			{{ if gt .Invite.MaxUses.Int64 0 }}
