@@ -13,26 +13,26 @@
 <h1 id="posts-header">Drafts</h1>
 
 {{ if .AnonymousPosts }}
-	<p>These are your draft posts. You can share them individually (without a blog) or move them to your blog when you're ready.</p>
+	<p>Ceci sont vos brouillons. Vous pouvez les partager individuellement (sans blog) ou les déplacer sur votre blog quand vous le souhaitez.</p>
 
 	<div class="atoms posts">
 	{{ range $el := .AnonymousPosts }}<div id="post-{{.ID}}" class="post">
 		<h3><a href="/{{if $.SingleUser}}d/{{end}}{{.ID}}" itemprop="url">{{.DisplayTitle}}</a></h3>
 		<h4>
 			<date datetime="{{.Created}}" pubdate itemprop="datePublished" content="{{.Created}}">{{.DisplayDate}}</date>
-			<a class="action" href="/{{if $.SingleUser}}d/{{end}}{{.ID}}/edit">edit</a>
-			<a class="delete action" href="/{{.ID}}" onclick="delPost(event, '{{.ID}}', true)">delete</a>
+			<a class="action" href="/{{if $.SingleUser}}d/{{end}}{{.ID}}/edit">éditer</a>
+			<a class="delete action" href="/{{.ID}}" onclick="delPost(event, '{{.ID}}', true)">supprimer</a>
 			{{ if $.Collections }}
 			{{if gt (len $.Collections) 1}}<div class="action flat-select">
-				<select id="move-{{.ID}}" onchange="postActions.multiMove(this, '{{.ID}}', {{if $.SingleUser}}true{{else}}false{{end}})" title="Move this post to one of your blogs">
+				<select id="move-{{.ID}}" onchange="postActions.multiMove(this, '{{.ID}}', {{if $.SingleUser}}true{{else}}false{{end}})" title="Déplacer ce brouillon vers un de vos blogs">
 					<option style="display:none"></option>
 					{{range $.Collections}}<option value="{{.Alias}}">{{.DisplayTitle}}</option>{{end}}
 				</select>
-				<label for="move-{{.ID}}">move to...</label>
+				<label for="move-{{.ID}}">déplacer vers...</label>
 				<img class="ic-18dp" src="/img/ic_down_arrow_dark@2x.png" />
 			</div>{{else}}
 			{{range $.Collections}}
-			<a class="action" href="/{{$el.ID}}" title="Publish this post to your blog '{{.DisplayTitle}}'" onclick="postActions.move(this, '{{$el.ID}}', '{{.Alias}}', {{if $.SingleUser}}true{{else}}false{{end}});return false">move to {{.DisplayTitle}}</a>
+			<a class="action" href="/{{$el.ID}}" title="Publier ce message sur '{{.DisplayTitle}}'" onclick="postActions.move(this, '{{$el.ID}}', '{{.Alias}}', {{if $.SingleUser}}true{{else}}false{{end}});return false">déplacer vers {{.DisplayTitle}}</a>
 			{{end}}
 			{{end}}
 			{{ end }}
@@ -40,9 +40,9 @@
 		{{if .Summary}}<p>{{.SummaryHTML}}</p>{{end}}
 	</div>{{end}}
 </div>{{ else }}<div id="no-posts-published">
-	<p>Your anonymous and draft posts will show up here once you've published some. You'll be able to share them individually (without a blog) or move them to a blog when you're ready.</p>
-	{{if not .SingleUser}}<p>Alternatively, see your blogs and their posts on your <a href="/me/c/">Blogs</a> page.</p>{{end}}
-	<p class="text-cta"><a href="{{if .SingleUser}}/me/new{{else}}/{{end}}">Start writing</a></p></div>{{ end }}
+	<p>Vos brouillons et messages anonymes apparaitront ici dès que vous en aurez publié quelques un. Vous aurez la possibilité de les partager individuellement (sans blog) ou de les déplacer vers un blog quand vous le souhaitez.</p>
+	{{if not .SingleUser}}<p>Vous pouvez également voir vos blogs et leurs messages sur votre page de <a href="/me/c/">Blogs</a>.</p>{{end}}
+	<p class="text-cta"><a href="{{if .SingleUser}}/me/new{{else}}/{{end}}">Commencez à écrire</a></p></div>{{ end }}
 
 <div id="moving"></div>
 
@@ -65,7 +65,7 @@ function postsLoaded(n) {
 	var $pInfo = document.getElementById('unsynced-posts-info');
 	$pInfo.className = 'alert info';
 	var plural = n != 1;
-	$pInfo.innerHTML = '<p>You have <strong>'+n+'</strong> post'+(plural?'s that aren\'t':' that isn\'t')+' synced to your account yet. <a href="#" id="btn-sync">Sync '+(plural?'them':'it')+' now</a>.</p>';
+	$pInfo.innerHTML = '<p>Il y a <strong>'+n+'</strong> message'+(plural?'s qui ne sont':' qui n\'est pas')+' synchronisé'+(plural?'s':'')+' avec votre compte. <a href="#" id="btn-sync">'+(plural?'Les':'le')+' synchroniser maintenant</a>.</p>';
 
 	var $noPosts = document.getElementById('no-posts-published');
 	if ($noPosts != null) {
@@ -88,7 +88,7 @@ function postsLoaded(n) {
 		}
 
 		this.style.fontWeight = 'bold';
-		this.innerText = 'Syncing '+(plural?'them':'it')+' now...';
+		this.innerText = (plural?'Les':'Le')+' synchroniser maintenant...';
 
 		http.open("POST", "/api/posts/claim", true);
 
