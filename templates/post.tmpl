@@ -38,13 +38,13 @@
 		<header>
 			<h1 dir="{{.Direction}}"><a href="/">{{.SiteName}}</a></h1>
 			<nav>
-				<span class="views{{if not .IsOwner}} owner-visible{{end}}" dir="ltr"><strong>{{largeNumFmt .Views}}</strong> {{pluralize "view" "views" .Views}}</span>
-				{{if .IsCode}}<a href="/{{.ID}}.txt" rel="noindex" dir="{{.Direction}}">View raw</a>{{end}}
+				<span class="views{{if not .IsOwner}} owner-visible{{end}}" dir="ltr"><strong>{{largeNumFmt .Views}}</strong> {{pluralize "vue" "vues" .Views}}</span>
+				{{if .IsCode}}<a href="/{{.ID}}.txt" rel="noindex" dir="{{.Direction}}">Affiche la source</a>{{end}}
 				{{ if .Username }}
 				{{if .IsOwner}}
-				<a href="/{{if .SingleUser}}d/{{end}}{{.ID}}/edit" dir="{{.Direction}}">Edit</a>
+				<a href="/{{if .SingleUser}}d/{{end}}{{.ID}}/edit" dir="{{.Direction}}">Editer</a>
 				{{end}}
-				<a class="xtra-feature dash-nav" href="/me/posts/" dir="{{.Direction}}">Drafts</a>
+				<a class="xtra-feature dash-nav" href="/me/posts/" dir="{{.Direction}}">Brouillons</a>
 				{{ end }}
 			</nav>
 		</header>
